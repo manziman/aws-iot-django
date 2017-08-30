@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block content %}
+	<head>
+		<style>
+			#map {
+        		height: 400px;
+        		width: 100%;
+       		}
+       	</style>
+    </head>
+	<div class="container">
+		<div class="row">
+			<h3>Device ID</h3>
+           	<div id="custom-search-input">
+           		<form method="POST">
+           			{% csrf_token %}
+	                <div class="input-group col-md-12">
+	                    <input id="deviceid" type="text" name="id" class="search-query form-control" placeholder="ID" />
+	                    <span class="input-group-btn">
+	                        <button class="btn btn-danger" type="submit">
+	                            <span class=" glyphicon glyphicon-search"></span>
+	                        </button>
+	                    </span>
+	                </div>
+	            </form>
+            </div>
+		</div>
+	</div>
+	{% if err is not None %}
+		{% if err == "invalid_id" %}
+			<div class="container">
+				<p>Please enter a valid device ID.</p>
+			</div>
+		{% elif err == "not_found" %}
+			<div class="container">
+				<p>Device not found!</p>
+			</div>
+		{% endif %}
+	{% endif %}
+	{% if search %}
+		<div class="container">
+			<p>Device ID: <span id="device_id">{{ id }}</span></p>
+		</div>
+	    <div class="container"> 
+		    <ul>
+				<li>Desired <span id="desired"></span>
+					<ul><li>Window: <span id="desired_window"></span></li></ul>
+				</li>
+				<li>Reported <span id="reported"></span>
+					<ul>
+						<li>Temperature: <span id="reported_temp"></span></li>
+						<li>Window: <span id="reported_window"></span></li>
+						<!-- <li>Latitude: <span id="reported_latitude"></span></li> -->
+						<!-- <li>Longitude: <span id="reported_longitude"></span></li> -->
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="container">
+			<body>
+			    <h3>Map</h3>
+		    	<div id="map"></div>
+			</body>
+		</div>
+
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY-VSJLk5BjcHWfZB1UAgI5gEHHbGbmIg&callback=initMap">
+	    </script>
+
+	    {% compress js %}
+			<script src="{% static 'js/js.cookie.js' %}"></script>
+			<script type="text/javascript">
+				var dev_id = "{{ id }}";
+				var dev_lat = 0.0;
+				var dev_lon = 0.0;
+			</script>
+			<script src="{% static 'js/monitor.js' %}"></script>
+	    	<script>
+			    function initMap() {
+			        var loc = {lat: dev_lat, lng: dev_lon};
+			        var map = new google.maps.Map(document.getElementById('map'), {
+			          	zoom: 10,
+			          	center: loc
+			        });
+		      		var marker = new google.maps.Marker({
+			          	position: loc,
+			          	map: map
+				    });
+			        setInterval(function updateMap() {
+			        	var loc_up = {lat: dev_lat, lng: dev_lon};
+			      		marker.setPosition(loc_up);
+				        map.panTo(loc_up);}, 3000);
+			    }
+			</script>
+		{% endcompress %}
+  	{% endif %}
+{% endblock %}
