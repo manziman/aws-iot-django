@@ -18,7 +18,7 @@
            		<form method="POST">
            			{% csrf_token %}
 	                <div class="input-group col-md-12">
-	                    <input id="deviceid" type="text" name="id" class="search-query form-control" placeholder="ID" />
+	                    <input id="deviceid" type="text" name="devid" class="search-query form-control" placeholder="ID" />
 	                    <span class="input-group-btn">
 	                        <button class="btn btn-danger" type="submit">
 	                            <span class=" glyphicon glyphicon-search"></span>
@@ -36,7 +36,7 @@
 			</div>
 		{% elif err == "not_found" %}
 			<div class="container">
-				<p>Device not found!</p>
+				<p>Device {{ id }} not found!</p>
 			</div>
 		{% endif %}
 	{% endif %}

@@ -13,7 +13,7 @@ function ajaxr() {
 	        }
     	},
         url: '/monitor_update/',
-        data: { 'id': dev_id },
+        data: { 'devid': dev_id },
         dataType: 'application/json',
         type:"POST",
         complete: function(data){

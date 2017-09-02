@@ -8,6 +8,8 @@ This is a project for a web app to remotely monitor devices using AWS IoT.
 ### Prerequisites
 
 Django 1.11.4
+AWS account with API creds
+Database of your choice
 
 ### Installing
 
