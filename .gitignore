@@ -1,8 +1,6 @@
 *.pyc
 *~
 __pycache__
-.elasticbeanstalk/*
-.ebextensions/*
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
