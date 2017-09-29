@@ -1,18 +1,24 @@
 # -*- coding: utf-8 -*-
 from __future__ 		import unicode_literals
 
+# Django auth
+from django.contrib.auth.decorators import login_required
+
 # Imports
 import boto3, json
 from django.shortcuts 	import render
 from django.http 		import JsonResponse
 from .forms 			import DeviceSearch
 
+
 # Views
 
+@login_required(login_url='/login/')
 def home(request):
 	""" Home page """
 	return render(request, 'aws_iot_monitor/home.html', {'nbar': 'home'})
 
+@login_required(login_url='/login/')
 def monitor(request):
     """ Device search form """
     if request.method == "POST":
@@ -30,6 +36,7 @@ def monitor(request):
     else:
     	return render(request, 'aws_iot_monitor/monitor.html', {'search': False, 'nbar': 'monitor', 'err': None})
 
+@login_required(login_url='/login/')
 def monitor_update(request):
 	""" Response to AJAX request for update on device status """
 	device_id = request.POST.get("id", "")
@@ -40,6 +47,7 @@ def monitor_update(request):
 	d = d[u'state']
 	return JsonResponse(d)
 
+@login_required(login_url='/login/')
 def about(request):
 	""" Placeholder about page """
 	return render(request, 'aws_iot_monitor/about.html', {'nbar': 'about'})
