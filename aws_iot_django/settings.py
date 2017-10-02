@@ -85,9 +85,9 @@ BOOTSTRAP3 = {
 SECRET_KEY = 'testkey'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['iot-django-dev.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
