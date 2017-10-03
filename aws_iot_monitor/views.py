@@ -26,7 +26,7 @@ def monitor(request):
     	if not form.is_valid():
     		return render(request, 'aws_iot_monitor/monitor.html', {'search': False, 'nbar': 'monitor', 'err': 'invalid_id'})
     	# Open boto3 client connection to AWS IoT
-    	client = boto3.client('iot')
+    	client = boto3.client('iot', region_name='us-west-2')
     	# Try to pull the information on the thing from IoT, if not then return error
     	try:
     		response = client.describe_thing(thingName=form.cleaned_data['devid'])
@@ -40,7 +40,7 @@ def monitor(request):
 def monitor_update(request):
 	""" Response to AJAX request for update on device status """
 	device_id = request.POST.get("id", "")
-	client = boto3.client('iot-data')
+	client = boto3.client('iot-data', region_name='us-west-2')
 	response = client.get_thing_shadow(thingName=device_id)
 	d = response[u'payload'].read()
 	d = json.loads(d)
