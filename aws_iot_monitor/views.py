@@ -42,7 +42,7 @@ def monitor_update(request):
 	device_id = request.POST.get("id", "")
 	client = boto3.client('iot-data', region_name='us-west-2')
 	response = client.get_thing_shadow(thingName=device_id)
-	d = response[u'payload'].read()
+	d = response[u'payload'].read().decode('utf-8')
 	d = json.loads(d)
 	d = d[u'state']
 	return JsonResponse(d)
