@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
-import os
+import os, random, string
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -81,10 +81,10 @@ BOOTSTRAP3 = {
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-if 'SECRET_KEY' not in os.environ:
-    SECRET_KEY = 'asvhuqAIUQBR238heg'
-else:
+if 'SECRET_KEY' in os.environ:
     SECRET_KEY = os.environ['SECRET_KEY']
+else:
+    SECRET_KEY = 'vuhawriu4tuf13t8aw8eA'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
