@@ -81,9 +81,11 @@ BOOTSTRAP3 = {
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-if 'SECRET_KEY' in os.environ:
+try:
     SECRET_KEY = os.environ['SECRET_KEY']
-else:
+except:
+    SECRET_KEY = 'vuhawriu4tuf13t8aw8eA'
+if SECRET_KEY == '':
     SECRET_KEY = 'vuhawriu4tuf13t8aw8eA'
 
 # SECURITY WARNING: don't run with debug turned on in production!
