@@ -82,7 +82,7 @@ BOOTSTRAP3 = {
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if 'SECRET_KEY' not in os.environ:
-    SECRET_KEY = 'thisisatestkey'
+    SECRET_KEY = 'asvhuqAIUQBR238heg'
 else:
     SECRET_KEY = os.environ['SECRET_KEY']
 
